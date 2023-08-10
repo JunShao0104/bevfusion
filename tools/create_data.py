@@ -80,7 +80,7 @@ parser.add_argument(
     required=False,
     help="name of info pkl",
 )
-parser.add_argument("--extra-tag", type=str, default="kitti")
+parser.add_argument("--extra-tag", type=str, default="kitti") # radar_nuscenes_5sweeps or nuscenes
 parser.add_argument("--painted", default=False, action="store_true")
 parser.add_argument("--virtual", default=False, action="store_true")
 parser.add_argument(

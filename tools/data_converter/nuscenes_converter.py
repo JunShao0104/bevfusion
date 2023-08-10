@@ -84,22 +84,39 @@ def create_nuscenes_infos(root_path,
     if test:
         print('test sample: {}'.format(len(train_nusc_infos)))
         data = dict(infos=train_nusc_infos, metadata=metadata)
+        # Original version
+        # info_path = osp.join(root_path,
+        #                      '{}_infos_test_radar.pkl'.format(info_prefix))
+        # mmcv.dump(data, info_path)
+
+        # Lingjun change version
         info_path = osp.join(root_path,
-                             '{}_infos_test_radar.pkl'.format(info_prefix))
+                             '{}_infos_test.pkl'.format(info_prefix))
         mmcv.dump(data, info_path)
+
     else:
         print(info_prefix)
         print('train sample: {}, val sample: {}'.format(
             len(train_nusc_infos), len(val_nusc_infos)))
         data = dict(infos=train_nusc_infos, metadata=metadata)
+
+        # Original version
+        # info_path = osp.join(info_prefix,
+        #                      '{}_infos_train_radar.pkl'.format(info_prefix))
+        # mmcv.dump(data, info_path)
+        # data['infos'] = val_nusc_infos
+        # info_val_path = osp.join(info_prefix,
+        #                          '{}_infos_val_radar.pkl'.format(info_prefix))
+        # mmcv.dump(data, info_val_path)
+
+        # Lingjun change version
         info_path = osp.join(info_prefix,
-                             '{}_infos_train_radar.pkl'.format(info_prefix))
+                             '{}_infos_train.pkl'.format(info_prefix))
         mmcv.dump(data, info_path)
         data['infos'] = val_nusc_infos
         info_val_path = osp.join(info_prefix,
-                                 '{}_infos_val_radar.pkl'.format(info_prefix))
+                                 '{}_infos_val.pkl'.format(info_prefix))
         mmcv.dump(data, info_val_path)
-
 
 def get_available_scenes(nusc):
     """Get available scenes from the input nuscenes class.
@@ -662,4 +679,5 @@ def generate_record(ann_rec: dict, x1: float, y1: float, x2: float, y2: float,
 
 
 if __name__ == '__main__':
-    create_nuscenes_infos('data/nuscenes/', 'radar_nuscenes_5sweeps')
+    # create_nuscenes_infos('data/nuscenes/', 'radar_nuscenes_5sweeps')
+    create_nuscenes_infos('/mnt/ws-frb/users/jingyuso/dataset/nuScenes/', 'radar_nuscenes_5sweeps')

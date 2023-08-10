@@ -595,6 +595,7 @@ def output_to_nusc_box(detection):
     # TODO: check whether this is necessary
     # with dir_offset & dir_limit in the head
     box_yaw = -box_yaw - np.pi / 2
+    # box_dims = box_dims[:, [1, 0, 2]] # Lingjun
 
     box_list = []
     for i in range(len(box3d)):

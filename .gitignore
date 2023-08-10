@@ -132,3 +132,6 @@ dmypy.json
 models/*
 data/*
 runs/*
+
+# Downloaded pth
+pretrained/

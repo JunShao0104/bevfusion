@@ -725,6 +725,7 @@ class LoadRadarPointsMultiSweeps(object):
                 - points (np.ndarray | :obj:`BasePoints`): Multi-sweep point \
                     cloud arrays.
         """
+        # print("results keys: ", results.keys())
         radars_dict = results['radar']
 
         points_sweep_list = []
