@@ -86,23 +86,41 @@ python setup.py develop
 We also provide a [Dockerfile](docker/Dockerfile) to ease environment setup. To get started with docker, please make sure that `nvidia-docker` is installed on your machine. After that, please execute the following command to build the docker image:
 
 ```bash
-cd docker && docker build . -t bevfusion
-```
-
-We can then run the docker with the following command:
-
-```bash
-nvidia-docker run -it -v `pwd`/../data:/dataset --shm-size 16g bevfusion /bin/bash
+cd docker
+# Build docker image
+docker build . -t bevfusion
+# Run docker container
+./run.sh
 ```
 
 We recommend the users to run data preparation (instructions are available in the next section) outside the docker if possible. Note that the dataset directory should be an absolute path. Within the docker, please run the following command to clone our repo and install custom CUDA extensions:
 
 ```bash
 cd home && git clone https://github.com/mit-han-lab/bevfusion && cd bevfusion
+```
+
+```bash
+# Before set up the environment, ensure the following command lines exist in the bevfusion/setup.py file.
+make_cuda_ext(
+                name="feature_decorator_ext",
+                module="mmdet3d.ops.feature_decorator",
+                sources=["src/feature_decorator.cpp"],
+                sources_cuda=["src/feature_decorator_cuda.cu"],
+            ),
+# And comment these lines in bevfusion/mmdet3d/ops/feature_decorator/src/feature_decorator.cpp.
+static auto registry =
+     torch::RegisterOperators("feature_decorator_ext::feature_decorator_forward", &feature_decorator_forward);
+```
+
+```bash
 python setup.py develop
 ```
 
 You can then create a symbolic link `data` to the `/dataset` directory in the docker.
+```bash
+# Our dataset path
+/mnt/ws-frb/users/jingyuso/dataset/nuScenes/
+```
 
 ### Data Preparation
 
