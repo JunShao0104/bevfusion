@@ -1,5 +1,5 @@
 dataset_type: NuScenesDataset
-dataset_root: data/nuscenes/
+dataset_root: /mnt/ws-frb/users/lingjunz/nuScenes/data/dataset/
 gt_paste_stop_epoch: -1
 reduce_beams: 32
 load_dim: 5
@@ -265,7 +265,8 @@ data:
     dataset:
       type: ${dataset_type}
       dataset_root: ${dataset_root}
-      ann_file: ${dataset_root + "nuscenes_infos_train.pkl"}
+      # ann_file: ${dataset_root + "nuscenes_infos_train.pkl"}
+      ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_train_radar.pkl"}
       pipeline: ${train_pipeline}
       object_classes: ${object_classes}
       map_classes: ${map_classes}
@@ -276,7 +277,8 @@ data:
   val:
     type: ${dataset_type}
     dataset_root: ${dataset_root}
-    ann_file: ${dataset_root + "nuscenes_infos_val.pkl"}
+    # ann_file: ${dataset_root + "nuscenes_infos_val.pkl"}
+    ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar.pkl"}
     pipeline: ${test_pipeline}
     object_classes: ${object_classes}
     map_classes: ${map_classes}
@@ -286,7 +288,8 @@ data:
   test:
     type: ${dataset_type}
     dataset_root: ${dataset_root}
-    ann_file: ${dataset_root + "nuscenes_infos_val.pkl"}
+    # ann_file: ${dataset_root + "nuscenes_infos_val.pkl"}
+    ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar.pkl"}
     pipeline: ${test_pipeline}
     object_classes: ${object_classes}
     map_classes: ${map_classes}
