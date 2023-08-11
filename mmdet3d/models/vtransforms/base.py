@@ -35,7 +35,7 @@ class BaseTransform(nn.Module):
         use_points='lidar', 
         depth_input='scalar',
         height_expand=True,
-        add_depth_features=False, # Lingjun set the flag to False
+        add_depth_features=True, # Lingjun set the flag to False
     ) -> None:
         super().__init__()
         self.in_channels = in_channels
@@ -275,8 +275,13 @@ class BaseDepthTransform(BaseTransform):
         batch_size = len(points)
         depth_in_channels = 1 if self.depth_input=='scalar' else self.D
         if self.add_depth_features:
-            depth_in_channels += points[0].shape[1]
+            # print("points shape: ", points.shape) # list
+            # print("len(points): ", len(points)) # 1 == batch_size
+            # print("points[0].shape: ", points[0].shape) # torch.Size([2022144, 5]) == (N, 5)
+            depth_in_channels += points[0].shape[1] # 5 == channel_num
+            # print("depth_in_channels: ", depth_in_channels) # 6
 
+        # depth shape: (batch_size, num_view, C, H, W)
         depth = torch.zeros(batch_size, img.shape[1], depth_in_channels, *self.image_size, device=points[0].device)
 
 
@@ -315,7 +320,9 @@ class BaseDepthTransform(BaseTransform):
             )
             for c in range(on_img.shape[0]):
                 masked_coords = cur_coords[c, on_img[c]].long()
+                # print("masked_coords shape: ", masked_coords.shape)
                 masked_dist = dist[c, on_img[c]]
+                # print("masked_dist shape: ", masked_dist.shape)
 
                 if self.depth_input == 'scalar':
                     depth[b, c, 0, masked_coords[:, 0], masked_coords[:, 1]] = masked_dist
@@ -327,6 +334,8 @@ class BaseDepthTransform(BaseTransform):
 
                 if self.add_depth_features:
                     depth[b, c, -points[b].shape[-1]:, masked_coords[:, 0], masked_coords[:, 1]] = points[b][boolmask2idx(on_img[c])].transpose(0,1)
+        
+        # print("depth shape: ", depth.shape) # torch.Size([1, 6, 6, 256, 704]) == (batch_size, num_view, C, H, W)
 
         extra_rots = lidar_aug_matrix[..., :3, :3]
         extra_trans = lidar_aug_matrix[..., :3, 3]
@@ -346,6 +355,7 @@ class BaseDepthTransform(BaseTransform):
             'bda_mat': lidar_aug_matrix,
             'sensor2ego_mats': sensor2ego, 
         }
+        # print("D: ", self.D) # 118
         x = self.get_cam_feats(img, depth, mats_dict)
 
         use_depth = False

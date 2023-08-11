@@ -118,8 +118,8 @@ class BEVFusion(Base3DFusionModel):
         img_metas,
         gt_depths=None,
     ) -> torch.Tensor:
-        B, N, C, H, W = x.size()
-        x = x.view(B * N, C, H, W)
+        B, N, C, H, W = x.size() # batchsize, num_view, channel, height, width
+        x = x.view(B * N, C, H, W) # batchsize * num_view, channel, height, width
 
         x = self.encoders["camera"]["backbone"](x)
         x = self.encoders["camera"]["neck"](x)
@@ -127,8 +127,8 @@ class BEVFusion(Base3DFusionModel):
         if not isinstance(x, torch.Tensor):
             x = x[0]
 
-        BN, C, H, W = x.size()
-        x = x.view(B, int(BN / B), C, H, W)
+        BN, C, H, W = x.size() # batchsize * num_view, channel, height, width
+        x = x.view(B, int(BN / B), C, H, W) # batchsize, num_view, channel, height, width
 
         x = self.encoders["camera"]["vtransform"](
             x,

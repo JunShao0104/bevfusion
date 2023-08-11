@@ -11,7 +11,7 @@ docker run -it \
     -v $GROUP_FILE:/etc/group:ro \
     -v /mnt/ws-frb/users/lingjunz/jingyu-docker/docker/home:$HOME \
     -v /mnt:/mnt \
-    --name lingjunz_bevfusion_purrgil_2 \
+    --name lingjunz_bevfusion_chickadee \
     --gpus=all \
     --ipc=host \
     bevfusion:latest # TODO: change this image name, container name and home directory accordingly

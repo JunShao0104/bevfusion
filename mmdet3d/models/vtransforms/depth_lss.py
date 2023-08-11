@@ -36,7 +36,7 @@ class DepthLSSTransform(BaseDepthTransform):
             dbound=dbound,
         )
         self.dtransform = nn.Sequential(
-            nn.Conv2d(1, 8, 1), # Original: nn.Conv2d(1, 8, 1), # Change by Lingjun
+            nn.Conv2d(6, 8, 1), # Original: nn.Conv2d(1, 8, 1), # Change by Lingjun: 1 (original value) + 5 (point dim) = 6
             nn.BatchNorm2d(8),
             nn.ReLU(True),
             nn.Conv2d(8, 32, 5, stride=4, padding=2),
@@ -80,10 +80,14 @@ class DepthLSSTransform(BaseDepthTransform):
 
     @force_fp32()
     def get_cam_feats(self, x, d):
+        # print("x.shape: ", x.shape) # torch.Size([1, 6, 256, 32, 88]): batchsize, view, channel, height_1, width_1
+        # print("d.shape: ", d.shape) # torch.Size([1, 6, 6, 256, 704]): batchsize, view, channel, height_0, width_0
         B, N, C, fH, fW = x.shape
 
         d = d.view(B * N, *d.shape[2:])
         x = x.view(B * N, C, fH, fW)
+        # print("x.shape: ", x.shape) # torch.Size([6, 256, 32, 88]): batchsize * view, channel, height_1, width_1
+        # print("d.shape: ", d.shape) # torch.Size([6, 6, 256, 704]): batchsize * view, channel, height_0, width_0
 
         d = self.dtransform(d)
         x = torch.cat([d, x], dim=1)
