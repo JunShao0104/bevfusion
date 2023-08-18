@@ -357,6 +357,7 @@ class BaseDepthTransform(BaseTransform):
         }
         # print("D: ", self.D) # 118
         x = self.get_cam_feats(img, depth, mats_dict)
+        # x = self.get_cam_feats(img, depth)
 
         use_depth = False
         if type(x) == tuple:
