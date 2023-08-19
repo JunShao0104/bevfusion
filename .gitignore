@@ -135,3 +135,5 @@ runs/*
 
 # Downloaded pth
 pretrained/
+
+nuscenes_old/

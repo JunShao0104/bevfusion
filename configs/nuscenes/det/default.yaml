@@ -56,7 +56,7 @@ train_pipeline:
     stop_epoch: ${gt_paste_stop_epoch}
     db_sampler:
       dataset_root: ${dataset_root}
-      info_path: ${'/mnt/ws-frb/users/jingyuso/dataset/nuScenes/' + "nuscenes_dbinfos_train.pkl"}
+      info_path: ${'/mnt/ws-frb/users/lingjunz/nuScenes/data/dataset/' + "nuscenes_old_dbinfos_train.pkl"} # Attention
       rate: 1.0
       prepare: 
         filter_by_difficulty: [-1]

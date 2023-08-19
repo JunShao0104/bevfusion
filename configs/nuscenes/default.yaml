@@ -1,5 +1,5 @@
 dataset_type: NuScenesDataset
-dataset_root: /mnt/ws-frb/users/jingyuso/dataset/nuScenes/
+dataset_root: /mnt/ws-frb/users/lingjunz/nuScenes/data/dataset/
 gt_paste_stop_epoch: -1
 reduce_beams: 32
 load_dim: 5
@@ -82,7 +82,7 @@ train_pipeline:
     stop_epoch: ${gt_paste_stop_epoch}
     db_sampler:
       dataset_root: ${dataset_root}
-      info_path: ${dataset_root + "nuscenes_dbinfos_train.pkl"}
+      info_path: ${dataset_root + "nuscenes_old_dbinfos_train.pkl"} # TODO: change to new one
       rate: 1.0
       prepare: 
         filter_by_difficulty: [-1]
@@ -271,8 +271,8 @@ data:
     dataset:
       type: ${dataset_type}
       dataset_root: ${dataset_root}
-      # ann_file: ${dataset_root + "nuscenes_infos_train.pkl"}
-      ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_train_radar.pkl"}
+      ann_file: ${dataset_root + "nuscenes_old_infos_train.pkl"}
+      # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_train_radar.pkl"}
       # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_train_radar_coor_1.pkl"}
       pipeline: ${train_pipeline}
       object_classes: ${object_classes}
@@ -284,8 +284,8 @@ data:
   val:
     type: ${dataset_type}
     dataset_root: ${dataset_root}
-    # ann_file: ${dataset_root + "nuscenes_infos_val.pkl"}
-    ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar.pkl"}
+    ann_file: ${dataset_root + "nuscenes_old_infos_val.pkl"}
+    # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar.pkl"}
     # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar_coor_1.pkl"}
     pipeline: ${test_pipeline}
     object_classes: ${object_classes}
@@ -296,8 +296,8 @@ data:
   test:
     type: ${dataset_type}
     dataset_root: ${dataset_root}
-    # ann_file: ${dataset_root + "nuscenes_infos_val.pkl"}
-    ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar.pkl"}
+    ann_file: ${dataset_root + "nuscenes_old_infos_val.pkl"}
+    # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar.pkl"}
     # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar_coor_1.pkl"}
     pipeline: ${test_pipeline}
     object_classes: ${object_classes}

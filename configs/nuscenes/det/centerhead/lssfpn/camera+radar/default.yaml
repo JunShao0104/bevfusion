@@ -2,11 +2,14 @@
 data:
   train:
     dataset:
-      ann_file: /mnt/ws-frb/users/jingyuso/dataset/nuScenes/radar_nuscenes_5sweeps_infos_train_radar.pkl
+      # ann_file: /mnt/ws-frb/users/jingyuso/dataset/nuScenes/radar_nuscenes_5sweeps_infos_train_radar.pkl
+      ann_file: /mnt/ws-frb/users/lingjunz/nuScenes/data/dataset/nuscenes_old_infos_train.pkl
   val:
-    ann_file: /mnt/ws-frb/users/jingyuso/dataset/nuScenes/radar_nuscenes_5sweeps_infos_val_radar.pkl
+    # ann_file: /mnt/ws-frb/users/jingyuso/dataset/nuScenes/radar_nuscenes_5sweeps_infos_val_radar.pkl
+    ann_file: /mnt/ws-frb/users/lingjunz/nuScenes/data/dataset/nuscenes_old_infos_val.pkl
   test:
-    ann_file: /mnt/ws-frb/users/jingyuso/dataset/nuScenes/radar_nuscenes_5sweeps_infos_val_radar.pkl
+    # ann_file: /mnt/ws-frb/users/jingyuso/dataset/nuScenes/radar_nuscenes_5sweeps_infos_val_radar.pkl
+    ann_file: /mnt/ws-frb/users/lingjunz/nuScenes/data/dataset/nuscenes_old_infos_val.pkl
     
 augment2d:
   resize: [[0.38, 0.55], [0.48, 0.48]]
