@@ -102,20 +102,18 @@ def create_nuscenes_infos(root_path,
 
         # Original version
         # info_path = osp.join(info_prefix,
-        #                      '{}_infos_train_radar.pkl'.format(info_prefix))
+        #                      '{}_infos_train.pkl'.format(info_prefix))
         # mmcv.dump(data, info_path)
         # data['infos'] = val_nusc_infos
         # info_val_path = osp.join(info_prefix,
-        #                          '{}_infos_val_radar.pkl'.format(info_prefix))
+        #                          '{}_infos_val.pkl'.format(info_prefix))
         # mmcv.dump(data, info_val_path)
 
-        # Lingjun change version
-        info_path = osp.join(info_prefix,
-                             '{}_infos_train.pkl'.format(info_prefix))
+        # Lingjun change version: add the data path to the dataset!!
+        info_path = osp.join(root_path, '{}_infos_train.pkl'.format(info_prefix))
         mmcv.dump(data, info_path)
         data['infos'] = val_nusc_infos
-        info_val_path = osp.join(info_prefix,
-                                 '{}_infos_val.pkl'.format(info_prefix))
+        info_val_path = osp.join(root_path, '{}_infos_val.pkl'.format(info_prefix))
         mmcv.dump(data, info_val_path)
 
 def get_available_scenes(nusc):

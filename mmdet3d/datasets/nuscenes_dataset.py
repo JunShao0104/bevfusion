@@ -324,14 +324,14 @@ class NuScenesDataset(Custom3DDataset):
         # the same as KITTI (0.5, 0.5, 0)
         # haotian: this is an important change: from 0.5, 0.5, 0.5 -> 0.5, 0.5, 0
 
-        gt_bboxes_3d = LiDARInstance3DBoxes(
-            gt_bboxes_3d, box_dim=gt_bboxes_3d.shape[-1], origin=(0.5, 0.5, 0)
-        ).convert_to(self.box_mode_3d)
-
-        # Lingjun
         # gt_bboxes_3d = LiDARInstance3DBoxes(
-        #     gt_bboxes_3d, box_dim=gt_bboxes_3d.shape[-1], origin=(0.5, 0.5, 0.5)
+        #     gt_bboxes_3d, box_dim=gt_bboxes_3d.shape[-1], origin=(0.5, 0.5, 0)
         # ).convert_to(self.box_mode_3d)
+
+        # Lingjun # issue: 305
+        gt_bboxes_3d = LiDARInstance3DBoxes(
+            gt_bboxes_3d, box_dim=gt_bboxes_3d.shape[-1], origin=(0.5, 0.5, 0.5)
+        ).convert_to(self.box_mode_3d)
 
         anns_results = dict(
             gt_bboxes_3d=gt_bboxes_3d,
