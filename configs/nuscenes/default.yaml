@@ -82,7 +82,7 @@ train_pipeline:
     stop_epoch: ${gt_paste_stop_epoch}
     db_sampler:
       dataset_root: ${dataset_root}
-      info_path: ${dataset_root + "nuscenes_old_dbinfos_train.pkl"} # TODO: change to new one
+      info_path: ${dataset_root + "nuscenes_old_coor_dbinfos_train.pkl"} # TODO: change to new one
       rate: 1.0
       prepare: 
         filter_by_difficulty: [-1]
@@ -271,7 +271,7 @@ data:
     dataset:
       type: ${dataset_type}
       dataset_root: ${dataset_root}
-      ann_file: ${dataset_root + "nuscenes_old_infos_train.pkl"}
+      ann_file: ${dataset_root + "nuscenes_old_coor_infos_train.pkl"}
       # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_train_radar.pkl"}
       # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_train_radar_coor_1.pkl"}
       pipeline: ${train_pipeline}
@@ -284,7 +284,7 @@ data:
   val:
     type: ${dataset_type}
     dataset_root: ${dataset_root}
-    ann_file: ${dataset_root + "nuscenes_old_infos_val.pkl"}
+    ann_file: ${dataset_root + "nuscenes_old_coor_infos_val.pkl"}
     # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar.pkl"}
     # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar_coor_1.pkl"}
     pipeline: ${test_pipeline}
@@ -296,7 +296,7 @@ data:
   test:
     type: ${dataset_type}
     dataset_root: ${dataset_root}
-    ann_file: ${dataset_root + "nuscenes_old_infos_val.pkl"}
+    ann_file: ${dataset_root + "nuscenes_old_coor_infos_val.pkl"}
     # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar.pkl"}
     # ann_file: ${dataset_root + "radar_nuscenes_5sweeps_infos_val_radar_coor_1.pkl"}
     pipeline: ${test_pipeline}
