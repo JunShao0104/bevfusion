@@ -24,7 +24,7 @@ model:
           type: Pretrained
           checkpoint: https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_tiny_patch4_window7_224.pth
       neck:
-        in_channels: [192, 384, 768]
+        in_channels: [192, 384, 768] # Attention: camera neck in_channels
       vtransform:
         xbound: [-54.0, 54.0, 0.3]
         ybound: [-54.0, 54.0, 0.3]

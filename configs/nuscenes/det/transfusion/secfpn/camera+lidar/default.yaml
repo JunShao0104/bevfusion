@@ -3,7 +3,7 @@ model:
     camera:
       neck:
         type: GeneralizedLSSFPN
-        in_channels: [512, 1024, 2048]
+        in_channels: [512, 1024, 2048] # Changed in configs/nuscenes/det/transfusion/secfpn/camera+lidar/swint_v0p075/default.yaml
         out_channels: 256
         start_level: 0
         num_outs: 3
@@ -58,7 +58,5 @@ lr_config: null
 
 optimizer:
   lr: 2.0e-4
-  # lr: 4.0e-4
 
 max_epochs: 6
-# max_epochs: 12

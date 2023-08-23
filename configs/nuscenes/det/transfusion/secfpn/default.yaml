@@ -1,34 +1,72 @@
+# Transfusion head: Second + SecondFPN
+# model:
+#   decoder:
+#     backbone:
+#       type: SECOND
+#       in_channels: 256
+#       out_channels: [128, 256]
+#       layer_nums: [5, 5]
+#       layer_strides: [1, 2]
+#       norm_cfg:
+#         type: BN
+#         eps: 1.0e-3
+#         momentum: 0.01
+#       conv_cfg:
+#         type: Conv2d
+#         bias: false
+#     neck:
+#       type: SECONDFPN
+#       in_channels: [128, 256]
+#       out_channels: [256, 256]
+#       upsample_strides: [1, 2]
+#       norm_cfg:
+#         type: BN
+#         eps: 1.0e-3
+#         momentum: 0.01
+#       upsample_cfg:
+#         type: deconv
+#         bias: false
+#       use_conv_for_no_stride: true
+#   heads:
+#     object:
+#       in_channels: 512
+
+# optimizer:
+#   type: AdamW
+#   lr: 1.0e-4
+#   weight_decay: 0.01
+
+# optimizer_config:
+#   grad_clip:
+#     max_norm: 35
+#     norm_type: 2
+
+# lr_config:
+#   policy: cyclic
+
+# momentum_config:
+#   policy: cyclic
+
+
+# Centerhead: GeneralizedResNet + LSSFPN
 model:
   decoder:
     backbone:
-      type: SECOND
+      type: GeneralizedResNet
       in_channels: 256
-      out_channels: [128, 256]
-      layer_nums: [5, 5]
-      layer_strides: [1, 2]
-      norm_cfg:
-        type: BN
-        eps: 1.0e-3
-        momentum: 0.01
-      conv_cfg:
-        type: Conv2d
-        bias: false
+      blocks:
+        - [2, 128, 2]
+        - [2, 256, 2]
+        - [2, 512, 1]
     neck:
-      type: SECONDFPN
-      in_channels: [128, 256]
-      out_channels: [256, 256]
-      upsample_strides: [1, 2]
-      norm_cfg:
-        type: BN
-        eps: 1.0e-3
-        momentum: 0.01
-      upsample_cfg:
-        type: deconv
-        bias: false
-      use_conv_for_no_stride: true
+      type: LSSFPN
+      in_indices: [-1, 0]
+      in_channels: [512, 128]
+      out_channels: 256
+      scale_factor: 2
   heads:
     object:
-      in_channels: 512
+      in_channels: 256
 
 optimizer:
   type: AdamW
